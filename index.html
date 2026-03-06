@@ -7,7 +7,7 @@
   <title>TrustDrop — Blockchain Donation Tracker</title>
   <!-- Security: Content Security Policy -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; connect-src https://api.coingecko.com https://rpc.sepolia.org;">
+    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; connect-src https://api.coingecko.com https://rpc.sepolia.org https://prod.spline.design https://*.spline.design; worker-src 'self' blob:;">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
@@ -102,6 +102,10 @@
             <strong>Your Tx</strong>
           </div>
         </div>
+      </div>
+      <div class="mobile-spline-wrap" aria-hidden="true">
+        <spline-viewer class="mobile-spline-viewer"
+          url="https://prod.spline.design/UWoeqiir20o49Dah/scene.splinecode"></spline-viewer>
       </div>
     </div>
   </section>
@@ -336,6 +340,7 @@
 
   <!-- Ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" type="application/javascript"></script>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
   <script src="app.js"></script>
 </body>
 
