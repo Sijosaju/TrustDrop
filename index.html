@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrustDrop — Blockchain Donation Tracker</title>
+  <!-- Security: Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; connect-src https://api.coingecko.com https://rpc.sepolia.org;">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Network Warning Banner (hidden by default) -->
+  <div class="network-warning" id="network-warning" style="display:none;">
+    <span>⚠️ Wrong Network! Please switch to <strong>Sepolia Testnet</strong></span>
+    <button onclick="switchToSepolia()">Switch Network</button>
+  </div>
+
+  <!-- Animated Background Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Floating Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-logo">
+      <div class="logo-icon">⬡</div>
+      <span>TrustDrop</span>
+    </div>
+    <div class="nav-right">
+      <div class="network-badge" id="network-badge">
+        <span class="dot"></span>
+        <span id="network-name">Not Connected</span>
+      </div>
+      <button class="btn-connect" id="connect-btn" onclick="connectWallet()">
+        <span class="btn-icon">🦊</span>
+        Connect Wallet
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Powered by Ethereum Blockchain
+      </div>
+      <h1 class="hero-title">
+        Transparent Donations,<br>
+        <span class="gradient-text">On-Chain Forever</span>
+      </h1>
+      <p class="hero-subtitle">
+        Every donation recorded immutably on the Ethereum blockchain.<br>
+        Trust through transparency. Verified by cryptography.
+      </p>
+
+      <!-- Wallet Info (hidden until connected) -->
+      <div class="wallet-info" id="wallet-info">
+        <div class="wallet-avatar" id="wallet-avatar"></div>
+        <div class="wallet-details">
+          <span class="wallet-label">Connected Wallet</span>
+          <span class="wallet-address" id="wallet-address">—</span>
+        </div>
+        <div class="wallet-balance">
+          <span class="balance-label">Balance</span>
+          <span class="balance-value" id="wallet-balance">— ETH</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating blockchain graphic -->
+    <div class="hero-visual">
+      <div class="chain-visual">
+        <div class="block-node active">
+          <div class="block-inner">
+            <span>Block</span>
+            <strong>#8,451</strong>
+          </div>
+        </div>
+        <div class="chain-line"></div>
+        <div class="block-node">
+          <div class="block-inner">
+            <span>Block</span>
+            <strong>#8,452</strong>
+          </div>
+        </div>
+        <div class="chain-line"></div>
+        <div class="block-node new-block">
+          <div class="block-inner">
+            <span>New</span>
+            <strong>Your Tx</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="stats-bar">
+    <div class="stat-item">
+      <div class="stat-icon">💎</div>
+      <div class="stat-info">
+        <span class="stat-value" id="stat-count">0</span>
+        <span class="stat-label">Total Donations</span>
+      </div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-info">
+        <span class="stat-value" id="stat-balance">0.0000</span>
+        <span class="stat-label">ETH Raised</span>
+      </div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-icon">🔗</div>
+      <div class="stat-info">
+        <span class="stat-value">Sepolia</span>
+        <span class="stat-label">Network</span>
+      </div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-icon">🛡️</div>
+      <div class="stat-info">
+        <span class="stat-value">100%</span>
+        <span class="stat-label">On-Chain</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+
+    <!-- Donate Card -->
+    <div class="glass-card donate-card">
+      <div class="card-glow"></div>
+      <div class="card-header">
+        <div class="card-icon-wrap">
+          <span class="card-icon">💸</span>
+        </div>
+        <div>
+          <h2>Make a Donation</h2>
+          <p>Your contribution is recorded on-chain instantly</p>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Donation Amount <span class="min-label">(min 0.001 ETH)</span></label>
+        <div class="input-wrapper">
+          <input type="number" id="donate-amount" placeholder="0.001" step="0.001" min="0.001" />
+          <div class="input-tag">ETH</div>
+        </div>
+        <div class="quick-amounts">
+          <button class="quick-btn" onclick="setAmount(0.001)">0.001</button>
+          <button class="quick-btn" onclick="setAmount(0.01)">0.01 ETH</button>
+          <button class="quick-btn" onclick="setAmount(0.05)">0.05 ETH</button>
+          <button class="quick-btn" onclick="setAmount(0.1)">0.1 ETH</button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label>Message <span class="min-label">(optional · max 200 chars)</span></label>
+        <textarea id="donate-message" placeholder="Leave a message for the organization..." maxlength="200"
+          rows="2"></textarea>
+        <div class="char-counter"><span id="char-count">0</span>/200</div>
+      </div>
+
+      <button class="btn-donate" id="donate-btn" onclick="donate()">
+        <span class="btn-text">
+          <span>⬡</span> Donate Now
+        </span>
+        <div class="btn-shine"></div>
+      </button>
+
+      <!-- Transaction Status -->
+      <div class="tx-status" id="tx-status" style="display:none;">
+        <div class="tx-icon" id="tx-icon">⏳</div>
+        <div class="tx-details">
+          <span class="tx-title" id="tx-title">Processing...</span>
+          <span class="tx-hash" id="tx-hash"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- History Card -->
+    <div class="glass-card history-card">
+      <div class="card-glow glow-purple"></div>
+      <div class="card-header">
+        <div class="card-icon-wrap icon-purple">
+          <span class="card-icon">📜</span>
+        </div>
+        <div>
+          <h2>Donation History</h2>
+          <p>All transactions verified on Ethereum</p>
+        </div>
+        <button class="btn-refresh" onclick="loadHistory()" title="Refresh">↻</button>
+      </div>
+
+      <div id="donation-list">
+        <div class="empty-state">
+          <div class="empty-icon">🔍</div>
+          <p>Connect your wallet to view donation history</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Owner Admin Panel (hidden for non-owners) -->
+    <div class="glass-card admin-card" id="admin-panel" style="display:none;">
+      <div class="card-glow glow-green"></div>
+      <div class="card-header">
+        <div class="card-icon-wrap icon-green">
+          <span class="card-icon">🔐</span>
+        </div>
+        <div>
+          <h2>Admin Panel</h2>
+          <p>Only visible to the contract owner</p>
+        </div>
+        <div class="owner-badge">OWNER</div>
+      </div>
+
+      <div class="admin-stats">
+        <div class="admin-stat">
+          <span class="admin-stat-label">Contract Balance</span>
+          <span class="admin-stat-value" id="admin-balance">— ETH</span>
+        </div>
+        <div class="admin-stat">
+          <span class="admin-stat-label">Total Raised (All Time)</span>
+          <span class="admin-stat-value" id="admin-total-raised">— ETH</span>
+        </div>
+      </div>
+
+      <div class="admin-actions">
+        <button class="btn-withdraw" id="withdraw-btn" onclick="withdrawFunds()">
+          <span>💸</span> Withdraw to My Wallet
+        </button>
+        <button class="btn-pause" id="pause-btn" onclick="togglePause()">
+          <span id="pause-icon">⏸</span> <span id="pause-label">Pause Donations</span>
+        </button>
+      </div>
+
+      <div class="tx-status" id="admin-tx-status" style="display:none;">
+        <div class="tx-icon" id="admin-tx-icon">⏳</div>
+        <div class="tx-details">
+          <span class="tx-title" id="admin-tx-title">Processing...</span>
+          <span class="tx-hash" id="admin-tx-hash"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Converter Card -->
+    <div class="glass-card converter-card">
+      <div class="card-glow glow-cyan"></div>
+      <div class="card-header">
+        <div class="card-icon-wrap icon-cyan">
+          <span class="card-icon">💱</span>
+        </div>
+        <div>
+          <h2>ETH ↔ Currency Converter</h2>
+          <p>Live price · auto-refreshes every 60s</p>
+        </div>
+        <div class="price-live-badge" id="price-badge">
+          <span class="live-dot"></span>
+          <span id="eth-usd-display">Fetching...</span>
+        </div>
+        <button class="btn-refresh" onclick="fetchEthPrice()" title="Refresh price">↻</button>
+      </div>
+
+      <!-- Currency selector -->
+      <div class="converter-currency-row">
+        <span class="conv-label">Select Currency</span>
+        <div class="currency-tabs">
+          <button class="cur-tab active" onclick="selectCurrency('inr', this)">🇮🇳 INR</button>
+          <button class="cur-tab" onclick="selectCurrency('usd', this)">🇺🇸 USD</button>
+          <button class="cur-tab" onclick="selectCurrency('eur', this)">🇪🇺 EUR</button>
+          <button class="cur-tab" onclick="selectCurrency('gbp', this)">🇬🇧 GBP</button>
+        </div>
+      </div>
+
+      <!-- Converter inputs -->
+      <div class="converter-body">
+        <div class="conv-field">
+          <label>ETH Amount</label>
+          <div class="input-wrapper">
+            <input type="number" id="conv-eth" placeholder="0.00" step="0.0001" min="0"
+              oninput="convertFromEth(this.value)" />
+            <div class="input-tag">ETH</div>
+          </div>
+        </div>
+
+        <div class="conv-swap" onclick="swapConverter()">⇅</div>
+
+        <div class="conv-field">
+          <label id="conv-fiat-label">INR Amount</label>
+          <div class="input-wrapper">
+            <input type="number" id="conv-fiat" placeholder="0.00" step="1" min="0"
+              oninput="convertFromFiat(this.value)" />
+            <div class="input-tag" id="conv-fiat-tag">INR</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Use amount button -->
+      <button class="btn-use-amount" onclick="useConverterAmount()">
+        ⬡ Use this ETH amount in Donation
+      </button>
+
+      <div class="price-updated" id="price-updated">Price not loaded yet</div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-logo">⬡ TrustDrop</div>
+      <p>Secured by Ethereum · Verified on Sepolia Testnet</p>
+      <a href="https://sepolia.etherscan.io" target="_blank" rel="noopener noreferrer" class="etherscan-link">
+        View on Etherscan ↗
+      </a>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Ethers.js -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" type="application/javascript"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
