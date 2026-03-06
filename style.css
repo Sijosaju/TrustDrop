@@ -1554,3 +1554,288 @@ body {
   cursor: not-allowed;
   transform: none;
 }
+
+/* ============================================
+   RESPONSIVE — TABLET (max 768px)
+   ============================================ */
+@media (max-width: 768px) {
+
+  /* Navbar */
+  .navbar {
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .nav-right {
+    gap: 10px;
+  }
+
+  .btn-connect {
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  /* Hero */
+  .hero {
+    flex-direction: column;
+    padding: 40px 20px 30px;
+    text-align: center;
+    gap: 30px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .hero-visual {
+    display: none;
+  }
+
+  .wallet-info {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    flex-wrap: wrap;
+    gap: 0;
+    padding: 10px 0;
+  }
+
+  .stat-item {
+    flex: 1 1 45%;
+    padding: 14px 10px;
+    justify-content: center;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  /* Main content */
+  .main-content {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  /* Glass cards */
+  .glass-card {
+    padding: 22px 18px;
+    border-radius: 18px;
+  }
+
+  /* Converter currency tabs */
+  .currency-tabs {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .cur-tab {
+    flex: 1 1 40%;
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  /* Converter body */
+  .converter-body {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .conv-swap {
+    transform: rotate(90deg);
+    margin: 4px auto;
+  }
+
+  /* Admin stats */
+  .admin-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .admin-actions {
+    flex-direction: column;
+  }
+
+  .btn-pause {
+    justify-content: center;
+  }
+
+  /* Donation history items */
+  .donation-item {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+/* ============================================
+   RESPONSIVE — MOBILE (max 480px)
+   ============================================ */
+@media (max-width: 480px) {
+
+  /* Navbar */
+  .navbar {
+    padding: 12px 16px;
+  }
+
+  .nav-logo span {
+    font-size: 1rem;
+  }
+
+  .network-badge {
+    display: none;
+  }
+
+  .btn-connect {
+    padding: 9px 14px;
+    font-size: 0.8rem;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 30px 16px 24px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+    line-height: 1.25;
+  }
+
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 6px 14px;
+  }
+
+  /* Stats bar */
+  .stat-item {
+    flex: 1 1 100%;
+    border-bottom: 1px solid var(--glass-border);
+    padding: 12px 16px;
+  }
+
+  .stat-value {
+    font-size: 1.4rem;
+  }
+
+  /* Cards */
+  .glass-card {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  .card-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .card-header h2 {
+    font-size: 1rem;
+  }
+
+  .card-icon-wrap {
+    width: 38px;
+    height: 38px;
+    font-size: 1.1rem;
+  }
+
+  /* Donation input */
+  .input-group label {
+    font-size: 0.82rem;
+  }
+
+  .input-wrapper input,
+  .input-wrapper textarea {
+    font-size: 0.95rem;
+    padding: 13px 50px 13px 14px;
+  }
+
+  /* Quick amount buttons */
+  .quick-amounts {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .quick-btn {
+    flex: 1 1 42%;
+    padding: 9px 8px;
+    font-size: 0.8rem;
+  }
+
+  /* Donate button */
+  .btn-donate {
+    font-size: 1rem;
+    padding: 15px;
+  }
+
+  /* TX status */
+  .tx-status {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* Donation history */
+  .donation-item {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .donation-amount {
+    font-size: 1rem;
+  }
+
+  /* Converter */
+  .conv-field label {
+    font-size: 0.82rem;
+  }
+
+  .price-live-badge {
+    font-size: 0.72rem;
+  }
+
+  .btn-use-amount {
+    font-size: 0.85rem;
+    padding: 12px;
+  }
+
+  /* Admin panel */
+  .admin-stat-value {
+    font-size: 1.1rem;
+  }
+
+  .btn-withdraw,
+  .btn-pause {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Network warning */
+  .network-warning {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 16px;
+    text-align: center;
+    font-size: 0.82rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+  }
+}
