@@ -7,7 +7,7 @@
   <title>TrustDrop — Blockchain Donation Tracker</title>
   <!-- Security: Content Security Policy -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self' 'unsafe-eval' https://cdn.jsdelivr.net https://unpkg.com https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https://*.spline.design; connect-src 'self' https://api.coingecko.com https://rpc.sepolia.org https://prod.spline.design https://*.spline.design https://unpkg.com; worker-src 'self' blob:;">
+    content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://api.coingecko.com https://rpc.sepolia.org; worker-src 'self' blob:;">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap"
@@ -79,35 +79,44 @@
       </div>
     </div>
 
-    <!-- Floating blockchain graphic -->
-    <div class="hero-visual">
-      <div class="chain-visual">
-        <div class="block-node active">
-          <div class="block-inner">
-            <span>Block</span>
-            <strong>#8,451</strong>
-          </div>
-        </div>
-        <div class="chain-line"></div>
-        <div class="block-node">
-          <div class="block-inner">
-            <span>Block</span>
-            <strong>#8,452</strong>
-          </div>
-        </div>
-        <div class="chain-line"></div>
-        <div class="block-node new-block">
-          <div class="block-inner">
-            <span>New</span>
-            <strong>Your Tx</strong>
-          </div>
-        </div>
-      </div>
-      <div class="mobile-spline-wrap" aria-hidden="true">
-        <spline-viewer class="mobile-spline-viewer"
-          url="https://prod.spline.design/UWoeqiir20o49Dah/scene.splinecode"
-          background="transparent"></spline-viewer>
-        <div class="mobile-chain-overlay"></div>
+    <!-- Animated 2D blockchain graphic -->
+    <div class="hero-visual" aria-hidden="true">
+      <div class="blockchain-2d">
+        <div class="bc-glow bc-glow-1"></div>
+        <div class="bc-glow bc-glow-2"></div>
+
+        <div class="bc-link bc-link-ab"><span class="bc-flow"></span></div>
+        <div class="bc-link bc-link-bc"><span class="bc-flow"></span></div>
+        <div class="bc-link bc-link-ad"><span class="bc-flow"></span></div>
+        <div class="bc-link bc-link-dc"><span class="bc-flow"></span></div>
+
+        <article class="bc-node bc-node-a">
+          <span class="bc-kicker">Block</span>
+          <strong>#8,451</strong>
+          <small>Validated</small>
+        </article>
+
+        <article class="bc-node bc-node-b">
+          <span class="bc-kicker">Block</span>
+          <strong>#8,452</strong>
+          <small>Synced</small>
+        </article>
+
+        <article class="bc-node bc-node-c is-hot">
+          <span class="bc-kicker">New Tx</span>
+          <strong>#8,453</strong>
+          <small>Broadcasting</small>
+        </article>
+
+        <article class="bc-node bc-node-d">
+          <span class="bc-kicker">Node</span>
+          <strong>Miner-04</strong>
+          <small>Peer Relay</small>
+        </article>
+
+        <div class="bc-pulse bc-pulse-1"></div>
+        <div class="bc-pulse bc-pulse-2"></div>
+        <p class="bc-status">Transaction flow secured by Ethereum consensus</p>
       </div>
     </div>
   </section>
@@ -342,7 +351,6 @@
 
   <!-- Ethers.js -->
   <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" type="application/javascript"></script>
-  <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script>
   <script src="app.js"></script>
 </body>
 
