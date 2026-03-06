@@ -129,6 +129,53 @@ if (msgTextarea) {
     });
 }
 
+function bindUiEvents() {
+    const switchNetworkBtn = document.getElementById('switch-network-btn');
+    if (switchNetworkBtn) switchNetworkBtn.addEventListener('click', switchToSepolia);
+
+    const connectBtn = document.getElementById('connect-btn');
+    if (connectBtn) connectBtn.addEventListener('click', connectWallet);
+
+    const donateBtn = document.getElementById('donate-btn');
+    if (donateBtn) donateBtn.addEventListener('click', donate);
+
+    const historyRefreshBtn = document.getElementById('history-refresh-btn');
+    if (historyRefreshBtn) historyRefreshBtn.addEventListener('click', loadHistory);
+
+    const withdrawBtn = document.getElementById('withdraw-btn');
+    if (withdrawBtn) withdrawBtn.addEventListener('click', withdrawFunds);
+
+    const pauseBtn = document.getElementById('pause-btn');
+    if (pauseBtn) pauseBtn.addEventListener('click', togglePause);
+
+    const priceRefreshBtn = document.getElementById('price-refresh-btn');
+    if (priceRefreshBtn) priceRefreshBtn.addEventListener('click', fetchEthPrice);
+
+    const convSwapBtn = document.getElementById('conv-swap-btn');
+    if (convSwapBtn) convSwapBtn.addEventListener('click', swapConverter);
+
+    const useAmountBtn = document.getElementById('use-converter-amount-btn');
+    if (useAmountBtn) useAmountBtn.addEventListener('click', useConverterAmount);
+
+    const ethInput = document.getElementById('conv-eth');
+    if (ethInput) {
+        ethInput.addEventListener('input', (event) => convertFromEth(event.target.value));
+    }
+
+    const fiatInput = document.getElementById('conv-fiat');
+    if (fiatInput) {
+        fiatInput.addEventListener('input', (event) => convertFromFiat(event.target.value));
+    }
+
+    document.querySelectorAll('[data-quick-amount]').forEach((btn) => {
+        btn.addEventListener('click', () => setAmount(btn.dataset.quickAmount));
+    });
+
+    document.querySelectorAll('.cur-tab[data-currency]').forEach((btn) => {
+        btn.addEventListener('click', () => selectCurrency(btn.dataset.currency, btn));
+    });
+}
+
 // ==========================================
 // NETWORK GUARD — Sepolia Only
 // ==========================================
@@ -665,5 +712,6 @@ function useConverterAmount() {
 }
 
 // Fetch price on load, refresh every 60s
+bindUiEvents();
 fetchEthPrice();
 setInterval(fetchEthPrice, 60000);

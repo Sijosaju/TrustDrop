@@ -20,7 +20,7 @@
   <!-- Network Warning Banner (hidden by default) -->
   <div class="network-warning" id="network-warning" style="display:none;">
     <span>⚠️ Wrong Network! Please switch to <strong>Sepolia Testnet</strong></span>
-    <button onclick="switchToSepolia()">Switch Network</button>
+    <button id="switch-network-btn">Switch Network</button>
   </div>
 
   <!-- Animated Background Canvas -->
@@ -42,7 +42,7 @@
         <span class="dot"></span>
         <span id="network-name">Not Connected</span>
       </div>
-      <button class="btn-connect" id="connect-btn" onclick="connectWallet()">
+      <button class="btn-connect" id="connect-btn">
         <span class="btn-icon">🦊</span>
         Connect Wallet
       </button>
@@ -164,10 +164,10 @@
           <div class="input-tag">ETH</div>
         </div>
         <div class="quick-amounts">
-          <button class="quick-btn" onclick="setAmount(0.001)">0.001</button>
-          <button class="quick-btn" onclick="setAmount(0.01)">0.01 ETH</button>
-          <button class="quick-btn" onclick="setAmount(0.05)">0.05 ETH</button>
-          <button class="quick-btn" onclick="setAmount(0.1)">0.1 ETH</button>
+          <button class="quick-btn" data-quick-amount="0.001">0.001</button>
+          <button class="quick-btn" data-quick-amount="0.01">0.01 ETH</button>
+          <button class="quick-btn" data-quick-amount="0.05">0.05 ETH</button>
+          <button class="quick-btn" data-quick-amount="0.1">0.1 ETH</button>
         </div>
       </div>
 
@@ -178,7 +178,7 @@
         <div class="char-counter"><span id="char-count">0</span>/200</div>
       </div>
 
-      <button class="btn-donate" id="donate-btn" onclick="donate()">
+      <button class="btn-donate" id="donate-btn">
         <span class="btn-text">
           <span>⬡</span> Donate Now
         </span>
@@ -206,7 +206,7 @@
           <h2>Donation History</h2>
           <p>All transactions verified on Ethereum</p>
         </div>
-        <button class="btn-refresh" onclick="loadHistory()" title="Refresh">↻</button>
+        <button class="btn-refresh" id="history-refresh-btn" title="Refresh">↻</button>
       </div>
 
       <div id="donation-list">
@@ -243,10 +243,10 @@
       </div>
 
       <div class="admin-actions">
-        <button class="btn-withdraw" id="withdraw-btn" onclick="withdrawFunds()">
+        <button class="btn-withdraw" id="withdraw-btn">
           <span>💸</span> Withdraw to My Wallet
         </button>
-        <button class="btn-pause" id="pause-btn" onclick="togglePause()">
+        <button class="btn-pause" id="pause-btn">
           <span id="pause-icon">⏸</span> <span id="pause-label">Pause Donations</span>
         </button>
       </div>
@@ -275,17 +275,17 @@
           <span class="live-dot"></span>
           <span id="eth-usd-display">Fetching...</span>
         </div>
-        <button class="btn-refresh" onclick="fetchEthPrice()" title="Refresh price">↻</button>
+        <button class="btn-refresh" id="price-refresh-btn" title="Refresh price">↻</button>
       </div>
 
       <!-- Currency selector -->
       <div class="converter-currency-row">
         <span class="conv-label">Select Currency</span>
         <div class="currency-tabs">
-          <button class="cur-tab active" onclick="selectCurrency('inr', this)">🇮🇳 INR</button>
-          <button class="cur-tab" onclick="selectCurrency('usd', this)">🇺🇸 USD</button>
-          <button class="cur-tab" onclick="selectCurrency('eur', this)">🇪🇺 EUR</button>
-          <button class="cur-tab" onclick="selectCurrency('gbp', this)">🇬🇧 GBP</button>
+          <button class="cur-tab active" data-currency="inr">🇮🇳 INR</button>
+          <button class="cur-tab" data-currency="usd">🇺🇸 USD</button>
+          <button class="cur-tab" data-currency="eur">🇪🇺 EUR</button>
+          <button class="cur-tab" data-currency="gbp">🇬🇧 GBP</button>
         </div>
       </div>
 
@@ -294,26 +294,24 @@
         <div class="conv-field">
           <label>ETH Amount</label>
           <div class="input-wrapper">
-            <input type="number" id="conv-eth" placeholder="0.00" step="0.0001" min="0"
-              oninput="convertFromEth(this.value)" />
+            <input type="number" id="conv-eth" placeholder="0.00" step="0.0001" min="0" />
             <div class="input-tag">ETH</div>
           </div>
         </div>
 
-        <div class="conv-swap" onclick="swapConverter()">⇅</div>
+        <div class="conv-swap" id="conv-swap-btn">⇅</div>
 
         <div class="conv-field">
           <label id="conv-fiat-label">INR Amount</label>
           <div class="input-wrapper">
-            <input type="number" id="conv-fiat" placeholder="0.00" step="1" min="0"
-              oninput="convertFromFiat(this.value)" />
+            <input type="number" id="conv-fiat" placeholder="0.00" step="1" min="0" />
             <div class="input-tag" id="conv-fiat-tag">INR</div>
           </div>
         </div>
       </div>
 
       <!-- Use amount button -->
-      <button class="btn-use-amount" onclick="useConverterAmount()">
+      <button class="btn-use-amount" id="use-converter-amount-btn">
         ⬡ Use this ETH amount in Donation
       </button>
 
