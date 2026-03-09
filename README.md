@@ -9,7 +9,6 @@
 [![ethers.js](https://img.shields.io/badge/ethers.js-5.7.2-2535a0?style=for-the-badge)](https://docs.ethers.io/)
 [![MetaMask](https://img.shields.io/badge/MetaMask-Compatible-E88831?style=for-the-badge&logo=metamask)](https://metamask.io/)
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?style=for-the-badge&logo=vercel)](https://vercel.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 <br/>
 
@@ -249,10 +248,6 @@ Contributions, issues, and feature requests are welcome!
 5. Open a Pull Request
 
 ---
-
-## 📄 License
-
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
